@@ -1,0 +1,1479 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Aurora Hotel & Restaurant</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #e07a5f;
+      --primary-dark: #c86447;
+      --secondary: #3d405b;
+      --accent: #81b29a;
+      --bg: #f4f1de;
+      --text: #333333;
+      --white: #ffffff;
+      --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.08);
+      --radius-xl: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(244, 241, 222, 0.98);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0.8rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--secondary);
+    }
+
+    .logo-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 20%, #ffe6c7, #e07a5f);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-weight: 700;
+      box-shadow: var(--shadow-soft);
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      justify-content: flex-end;
+    }
+
+    .nav-link {
+      padding: 0.4rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--secondary);
+      transition: background 0.2s ease, color 0.2s ease, transform 0.1s ease;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .nav-link:hover {
+      background: rgba(224, 122, 95, 0.12);
+      transform: translateY(-1px);
+    }
+
+    .nav-link.active {
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    .hero {
+      max-width: 1200px;
+      margin: 1.5rem auto 1rem;
+      padding: 1.5rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 1.5rem;
+    }
+
+    .hero-card {
+      background: linear-gradient(135deg, #fefaf3, #f4f1de);
+      border-radius: 28px;
+      padding: 2rem 2.2rem;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(224, 122, 95, 0.28), transparent 70%);
+      top: -60px;
+      right: -40px;
+      opacity: 0.8;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(61, 64, 91, 0.08);
+      color: var(--secondary);
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      margin-bottom: 0.7rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .hero-title {
+      font-size: 2rem;
+      line-height: 1.2;
+      margin-bottom: 0.7rem;
+      color: var(--secondary);
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-subtitle {
+      font-size: 0.95rem;
+      max-width: 28rem;
+      margin-bottom: 1.3rem;
+      color: #555;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      padding: 0.6rem 1rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: transform 0.1s ease, box-shadow 0.15s ease, background 0.15s ease,
+      color 0.15s ease;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--secondary);
+      border: 1px solid rgba(61, 64, 91, 0.28);
+      box-shadow: none;
+    }
+
+    .btn-outline:hover {
+      background: rgba(61, 64, 91, 0.06);
+    }
+
+    .hero-meta {
+      margin-top: 1.5rem;
+      font-size: 0.8rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      color: #666;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .hero-meta-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--primary);
+      border-radius: 999px;
+    }
+
+    .hero-gallery {
+      display: grid;
+      grid-template-rows: 2fr 1.2fr;
+      gap: 0.8rem;
+    }
+
+    .hero-main-photo {
+      border-radius: 24px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: var(--shadow-soft);
+      background: #ddd;
+      min-height: 200px;
+    }
+
+    .hero-main-photo::after {
+      content: "ФОТО ИНТЕРЬЕРА (можно заменить на своё)";
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 600;
+      font-size: 0.9rem;
+      background: linear-gradient(135deg, rgba(61, 64, 91, 0.9), rgba(224, 122, 95, 0.9));
+    }
+
+    .hero-thumbs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.7rem;
+    }
+
+    .hero-thumb {
+      border-radius: 17px;
+      background: #ccc;
+      position: relative;
+      overflow: hidden;
+      min-height: 70px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hero-thumb span {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      color: #fff;
+      text-align: center;
+      padding: 0.4rem;
+      background: linear-gradient(135deg, rgba(129, 178, 154, 0.9), rgba(61, 64, 91, 0.9));
+    }
+
+    main {
+      flex: 1;
+    }
+
+    .sections {
+      max-width: 1200px;
+      margin: 0 auto 3rem;
+      padding: 0 1.5rem 2rem;
+    }
+
+    section {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: 1.8rem 1.8rem 1.9rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow-soft);
+      display: none;
+    }
+
+    section.active {
+      display: block;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .section-title {
+      font-size: 1.3rem;
+      color: var(--secondary);
+      font-weight: 700;
+    }
+
+    .section-subtitle {
+      font-size: 0.85rem;
+      color: #777;
+    }
+
+    /* MENU */
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1rem;
+      margin-top: 0.8rem;
+    }
+
+    .menu-card {
+      border-radius: 18px;
+      background: #fdfbf7;
+      box-shadow: var(--shadow-soft);
+      padding: 0.9rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .menu-photo {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #ccc;
+      min-height: 120px;
+    }
+
+    .menu-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .menu-name {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .menu-desc {
+      font-size: 0.8rem;
+      color: #666;
+    }
+
+    .menu-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      margin-top: 0.3rem;
+    }
+
+    .price {
+      font-weight: 700;
+      color: var(--secondary);
+    }
+
+    .discount {
+      font-size: 0.75rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 999px;
+      background: rgba(129, 178, 154, 0.12);
+      color: #225f46;
+    }
+
+    /* EVENTS */
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+      margin-top: 0.7rem;
+    }
+
+    .card {
+      background: #fdfbf7;
+      border-radius: 16px;
+      padding: 1rem 1rem 1.1rem;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .card-title {
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    .card-tagline {
+      font-size: 0.8rem;
+      color: #888;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-list {
+      list-style: none;
+      font-size: 0.8rem;
+      color: #555;
+    }
+
+    .card-list li::before {
+      content: "•";
+      margin-right: 0.35rem;
+      color: var(--primary);
+    }
+
+    /* FORMS */
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1rem 1.5rem;
+      margin-top: 0.7rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      font-size: 0.8rem;
+    }
+
+    label {
+      font-weight: 600;
+      color: var(--secondary);
+    }
+
+    input,
+    select,
+    textarea {
+      border-radius: 12px;
+      border: 1px solid rgba(61, 64, 91, 0.2);
+      padding: 0.45rem 0.6rem;
+      font-family: inherit;
+      font-size: 0.85rem;
+      outline: none;
+      transition: border 0.15s ease, box-shadow 0.15s ease;
+      background: #fdfdfb;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 1px rgba(224, 122, 95, 0.25);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .form-actions {
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      align-items: center;
+    }
+
+    .hint {
+      font-size: 0.75rem;
+      color: #777;
+    }
+
+    /* INNOVATIONS */
+
+    .innovation-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: 1.5rem;
+      margin-top: 0.7rem;
+    }
+
+    .innovation-photo {
+      border-radius: 20px;
+      background: #ccc;
+      min-height: 180px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .innovation-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .innovations-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+
+    .innovation-item-title {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .innovation-item-text {
+      font-size: 0.8rem;
+      color: #555;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.4rem;
+    }
+
+    .chip {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 999px;
+      background: rgba(61, 64, 91, 0.07);
+    }
+
+    /* ABOUT & REVIEWS */
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 1rem;
+      margin-top: 0.7rem;
+      font-size: 0.85rem;
+    }
+
+    .info-block-title {
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    .info-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+    }
+
+    .info-table td {
+      padding: 0.25rem 0.4rem;
+      vertical-align: top;
+    }
+
+    .info-table td:first-child {
+      font-weight: 600;
+      color: var(--secondary);
+      width: 35%;
+    }
+
+    .map-frame {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      min-height: 180px;
+    }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 0.7rem;
+      margin-top: 0.7rem;
+    }
+
+    .review-card {
+      background: #fdfbf7;
+      border-radius: 16px;
+      padding: 0.8rem;
+      box-shadow: var(--shadow-soft);
+      font-size: 0.8rem;
+    }
+
+    .review-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.25rem;
+    }
+
+    .review-name {
+      font-weight: 600;
+    }
+
+    .review-stars {
+      color: #f2a93b;
+      font-size: 0.75rem;
+    }
+
+    .review-meta {
+      font-size: 0.7rem;
+      color: #777;
+      margin-bottom: 0.25rem;
+    }
+
+    footer {
+      border-top: 1px solid rgba(61, 64, 91, 0.08);
+      padding: 1.2rem 1.5rem 1.4rem;
+      font-size: 0.75rem;
+      color: #777;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      align-items: center;
+    }
+
+    .scroll-top {
+      position: fixed;
+      right: 1.4rem;
+      bottom: 1.4rem;
+      z-index: 40;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .scroll-top.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+    }
+
+    .modal {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 1.2rem 1.4rem 1.1rem;
+      max-width: 360px;
+      width: calc(100% - 2rem);
+      box-shadow: var(--shadow-soft);
+      font-size: 0.85rem;
+    }
+
+    .modal-title {
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    .modal-text {
+      font-size: 0.8rem;
+      margin-bottom: 0.7rem;
+      color: #555;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    @media (max-width: 880px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-card {
+        padding: 1.5rem 1.6rem;
+      }
+
+      .hero-title {
+        font-size: 1.6rem;
+      }
+
+      .innovation-layout,
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav-container {
+        align-items: flex-start;
+      }
+
+      nav {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      section {
+        padding: 1.3rem 1.2rem 1.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <div class="nav-container">
+      <div class="logo">
+        <div class="logo-icon">A</div>
+        <div>
+          Aurora Hotel &amp; Restaurant
+          <div style="font-size:0.7rem;font-weight:400;color:#777;">
+            Туристический бизнес-проект
+          </div>
+        </div>
+      </div>
+      <nav>
+        <button class="nav-link active" data-section="home">Главная</button>
+        <button class="nav-link" data-section="menu">Меню</button>
+        <button class="nav-link" data-section="events">Мероприятия</button>
+        <button class="nav-link" data-section="booking">Бронирование</button>
+        <button class="nav-link" data-section="delivery">Доставка</button>
+        <button class="nav-link" data-section="innovations">Инновации</button>
+        <button class="nav-link" data-section="about">О фирме</button>
+        <button class="nav-link" data-section="reviews">Отзывы</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero-wrapper" id="hero">
+      <div class="hero">
+        <div class="hero-card">
+          <div class="hero-badge">
+            <span class="hero-badge-dot"></span>
+            Бизнес-проект объекта туристической индустрии
+          </div>
+          <h1 class="hero-title">Aurora — бутик-отель и ресторан европейской кухни</h1>
+          <p class="hero-subtitle">
+            Современное заведение в центре города с акцентом на цифровые технологии:
+            онлайн-бронирование, умная кухня, QR-меню и аналитика загрузки.
+          </p>
+          <div class="hero-cta">
+            <button class="btn btn-primary" data-section="booking">
+              Забронировать столик
+            </button>
+            <button class="btn btn-outline" data-section="menu">
+              Посмотреть меню
+            </button>
+          </div>
+          <div class="hero-meta">
+            <div class="hero-meta-item">
+              <span class="hero-meta-dot"></span> 45 номеров бизнес-класса
+            </div>
+            <div class="hero-meta-item">
+              <span class="hero-meta-dot"></span> ресторан на 80 мест
+            </div>
+            <div class="hero-meta-item">
+              <span class="hero-meta-dot"></span> конференц-зал до 120 гостей
+            </div>
+          </div>
+        </div>
+        <div class="hero-gallery">
+          <div class="hero-main-photo"></div>
+          <div class="hero-thumbs">
+            <div class="hero-thumb"><span>Интерьер ресторана</span></div>
+            <div class="hero-thumb"><span>Номер «Deluxe»</span></div>
+            <div class="hero-thumb"><span>Конференц-зал</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="sections">
+      <!-- Главная -->
+      <section id="home" class="active">
+        <div class="section-header">
+          <h2 class="section-title">Главная страница</h2>
+          <p class="section-subtitle">
+            Краткая информация о заведении, интерьер, кухня и интерактивная карта
+          </p>
+        </div>
+        <p style="font-size:0.9rem;margin-bottom:0.8rem;">
+          <strong>Aurora Hotel &amp; Restaurant</strong> — современный туристический объект, сочетающий
+          комфортный бутик-отель и авторский ресторан европейской и паназиатской кухни. Концепция —
+          «цифровой сервис без очередей»: все ключевые процессы автоматизированы и доступны онлайн.
+        </p>
+        <div class="info-grid">
+          <div>
+            <div class="info-block-title">Интерьер и атмосфера</div>
+            <p style="font-size:0.85rem;margin-bottom:0.5rem;">
+              В оформлении используются натуральные материалы, мягкий тёплый свет и функциональные
+              зоны: лаунж-пространство, барная стойка, открытая кухня и отдельные залы для банкетов
+              и конференций. Для гостей предусмотрен высокоскоростной Wi-Fi, USB-зарядки у столиков
+              и акустическая система с зонированием.
+            </p>
+            <div class="info-block-title">Кухня</div>
+            <p style="font-size:0.85rem;">
+              Основа меню — сезонные продукты, локальные фермерские поставки и современная подача:
+              стейки dry-age, дегустационные сеты, авторские десерты, винная карта и безалкогольные
+              коктейли. Для туристических групп предлагаются комплексные меню и шведский стол.
+            </p>
+            <div style="margin-top:0.8rem;font-size:0.8rem;color:#777;">
+              Участник проекта: <strong>Войтюк Виолетта</strong>
+            </div>
+          </div>
+          <div>
+            <div class="info-block-title">Интерактивная карта</div>
+            <div class="map-frame">
+              <iframe
+                      src="https://maps.google.com/maps?q=53.902496,27.561481&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                      width="100%"
+                      height="100%"
+                      frameborder="0"
+                      style="border:0;"
+                      allowfullscreen=""
+                      loading="lazy"
+              ></iframe>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Меню -->
+      <section id="menu">
+        <div class="section-header">
+          <h2 class="section-title">Меню ресторана</h2>
+          <p class="section-subtitle">
+            Название блюда, состав, фото, цена и возможные скидки
+          </p>
+        </div>
+        <div class="menu-grid">
+          <article class="menu-card">
+            <div class="menu-photo">
+              <img src="images/блюдо1.jpg" alt="Картофель с мясом и грибами" />
+            </div>
+            <div class="menu-name">Картофель с мясом и грибами</div>
+            <div class="menu-desc">
+              Тушёное мясо с картофелем, шампиньонами, луком и сливочным соусом.
+            </div>
+            <div class="menu-meta">
+              <span class="price">25 BYN</span>
+              <span class="discount">Скидка 10% по будням</span>
+            </div>
+          </article>
+
+          <article class="menu-card">
+            <div class="menu-photo">
+              <img src="images/блюдо2.jpg" alt="Мясо с овощами" />
+            </div>
+            <div class="menu-name">Мясо с овощами</div>
+            <div class="menu-desc">
+              Сочное куриное филе, обжаренное с болгарским перцем, кабачками,
+              луком и томатами в фирменном соусе.
+            </div>
+            <div class="menu-meta">
+              <span class="price">28 BYN</span>
+              <span class="discount">−15% для гостей отеля</span>
+            </div>
+          </article>
+
+          <article class="menu-card">
+            <div class="menu-photo">
+              <img src="images/блюдо3.jpg" alt="Мясо в соусе с пюре" />
+            </div>
+            <div class="menu-name">Мясо в соусе с пюре</div>
+            <div class="menu-desc">
+              Нежная говядина в томатно-сливочном соусе с картофельным пюре и зеленью.
+            </div>
+            <div class="menu-meta">
+              <span class="price">30 BYN</span>
+              <span class="discount">Каждый 4-й обед бесплатно</span>
+            </div>
+          </article>
+
+          <article class="menu-card">
+            <div class="menu-photo">
+              <img src="images/блюдо4.jpg" alt="Курица с овощами" />
+            </div>
+            <div class="menu-name">Курица с овощами</div>
+            <div class="menu-desc">
+              Пряная курица с луком, зеленью и овощами в фирменном маринаде.
+            </div>
+            <div class="menu-meta">
+              <span class="price">24 BYN</span>
+              <span class="discount">Скидка 20% при заказе доставки</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Мероприятия -->
+      <section id="events">
+        <div class="section-header">
+          <h2 class="section-title">Организация мероприятий</h2>
+          <p class="section-subtitle">
+            Банкет, фуршет, конференции и другие форматы
+          </p>
+        </div>
+        <div class="card-grid">
+          <article class="card">
+            <h3 class="card-title">Банкеты</h3>
+            <p class="card-tagline">Свадьбы, юбилеи, корпоративы до 80 гостей</p>
+            <ul class="card-list">
+              <li>Индивидуально составленное банкетное меню</li>
+              <li>Декор зала и фотозона по запросу</li>
+              <li>Звук и свет, возможность живой музыки</li>
+              <li>Фиксированная аренда зала по часам</li>
+              <li>Специальные тарифы на размещение гостей в отеле</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3 class="card-title">Фуршеты и кофе-брейки</h3>
+            <p class="card-tagline">Для деловых встреч, презентаций и выставок</p>
+            <ul class="card-list">
+              <li>Фуршетные линии в холле или лобби</li>
+              <li>Кофе-брейки «под ключ» для конференций</li>
+              <li>Выездной кейтеринг в пределах города</li>
+              <li>Персональный менеджер мероприятия</li>
+              <li>Возможность брендирования сервировки</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3 class="card-title">Конференции и семинары</h3>
+            <p class="card-tagline">Конференц-зал до 120 человек</p>
+            <ul class="card-list">
+              <li>Профессиональный проектор и экран</li>
+              <li>Система звукоусиления и микрофоны</li>
+              <li>Онлайн-трансляция и гибридные мероприятия</li>
+              <li>Технический специалист на площадке</li>
+              <li>Пакеты «под ключ» с питанием и проживанием</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <!-- Бронирование -->
+      <section id="booking">
+        <div class="section-header">
+          <h2 class="section-title">Онлайн-бронирование столиков</h2>
+          <p class="section-subtitle">
+            Форма для гостей ресторана, данные приходят администратору
+          </p>
+        </div>
+        <form id="booking-form">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="booking-name">ФИО</label>
+              <input id="booking-name" type="text" required placeholder="Иванов Иван" />
+            </div>
+            <div class="form-group">
+              <label for="booking-phone">Телефон</label>
+              <input id="booking-phone" type="tel" required placeholder="+375 XX XXX XX XX" />
+            </div>
+            <div class="form-group">
+              <label for="booking-email">E-mail</label>
+              <input id="booking-email" type="email" placeholder="guest@example.com" />
+            </div>
+            <div class="form-group">
+              <label for="booking-date">Дата визита</label>
+              <input id="booking-date" type="date" required />
+            </div>
+            <div class="form-group">
+              <label for="booking-time">Время</label>
+              <input id="booking-time" type="time" required />
+            </div>
+            <div class="form-group">
+              <label for="booking-guests">Количество гостей</label>
+              <select id="booking-guests" required>
+                <option value="">Выберите...</option>
+                <option>1–2</option>
+                <option>3–4</option>
+                <option>5–8</option>
+                <option>9–12</option>
+                <option>Более 12 (банкет)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="booking-zone">Предпочитаемая зона</label>
+              <select id="booking-zone">
+                <option>Любая</option>
+                <option>Окно</option>
+                <option>Тихая зона</option>
+                <option>Барная стойка</option>
+                <option>VIP-зал</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="booking-comment">Комментарии / особые пожелания</label>
+              <textarea id="booking-comment" placeholder="Аллергии, повод, пожелания по размещению..."></textarea>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Отправить заявку</button>
+            <span class="hint">
+                            В реальном проекте форма может отправлять данные в Google-таблицу, CRM или на e-mail.
+                        </span>
+          </div>
+        </form>
+      </section>
+
+      <!-- Доставка -->
+      <section id="delivery">
+        <div class="section-header">
+          <h2 class="section-title">Онлайн-заказ и доставка</h2>
+          <p class="section-subtitle">
+            Форма для формирования заказа и доставки блюд
+          </p>
+        </div>
+        <form id="delivery-form">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="delivery-name">ФИО</label>
+              <input id="delivery-name" type="text" required />
+            </div>
+            <div class="form-group">
+              <label for="delivery-phone">Телефон</label>
+              <input id="delivery-phone" type="tel" required />
+            </div>
+            <div class="form-group">
+              <label for="delivery-address">Адрес доставки</label>
+              <input id="delivery-address" type="text" required placeholder="Улица, дом, подъезд, этаж" />
+            </div>
+            <div class="form-group">
+              <label for="delivery-time">Желаемое время доставки</label>
+              <input id="delivery-time" type="time" />
+            </div>
+            <div class="form-group">
+              <label for="delivery-payment">Способ оплаты</label>
+              <select id="delivery-payment" required>
+                <option value="">Выберите...</option>
+                <option>Картой онлайн</option>
+                <option>Картой курьеру</option>
+                <option>Наличными курьеру</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Выбор блюд</label>
+              <div style="font-size:0.8rem;">
+                <label><input type="checkbox" name="dish" value="Картофель с мясом и грибами" /> Картофель с мясом и
+                  грибами</label><br />
+                <label><input type="checkbox" name="dish" value="Мясо с овощами" /> Мясо с овощами</label><br />
+                <label><input type="checkbox" name="dish" value="Мясо в соусе с пюре" /> Мясо в соусе с пюре</label><br />
+                <label><input type="checkbox" name="dish" value="Курица с овощами" /> Курица с овощами</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="delivery-comment">Комментарий к заказу</label>
+              <textarea id="delivery-comment"></textarea>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Оформить заказ</button>
+            <span class="hint">
+                            В реальном заведении можно подключить оплату через онлайн-эквайринг и интеграцию с системой доставки.
+                        </span>
+          </div>
+        </form>
+      </section>
+
+      <!-- Инновации -->
+      <section id="innovations">
+        <div class="section-header">
+          <h2 class="section-title">Инновационные технологии</h2>
+          <p class="section-subtitle">
+            Оборудование и программное обеспечение в данном заведении
+          </p>
+        </div>
+        <div class="innovation-layout">
+          <div class="innovations-list">
+            <div>
+              <div class="innovation-item-title">1. QR-меню и бесконтактный заказ</div>
+              <p class="innovation-item-text">
+                На каждом столике размещается QR-код, ведущий на адаптивную страницу меню. Гость может просмотреть
+                фотографии блюд, состав, аллергенную карту, сформировать заказ и отправить его напрямую на кухню.
+              </p>
+              <div class="chip-row">
+                <span class="chip">Планшет гостя</span>
+                <span class="chip">Web-приложение</span>
+                <span class="chip">Интеграция с POS</span>
+              </div>
+            </div>
+            <div>
+              <div class="innovation-item-title">2. PMS + Channel Manager для отеля</div>
+              <p class="innovation-item-text">
+                Система управления отелем объединяет бронирование, размещение, биллинг и отчёты. Channel Manager
+                синхронизирует наличие номеров с онлайн-площадками, предотвращая овербукинг и автоматически
+                обновляя цены.
+              </p>
+              <div class="chip-row">
+                <span class="chip">Облачная PMS</span>
+                <span class="chip">API-интеграции</span>
+              </div>
+            </div>
+            <div>
+              <div class="innovation-item-title">3. Умная кухня и мониторинг складов</div>
+              <p class="innovation-item-text">
+                Сенсоры температуры и влажности в холодильных камерах, RFID-метки на продуктах, автоматический учёт
+                списаний и формирование заявок поставщикам. Система предупреждает о нарушениях условий хранения и
+                помогает предотвращать пищевые отходы.
+              </p>
+              <div class="chip-row">
+                <span class="chip">IoT-датчики</span>
+                <span class="chip">Складской модуль</span>
+              </div>
+            </div>
+            <div>
+              <div class="innovation-item-title">4. Аналитика гостей и программы лояльности</div>
+              <p class="innovation-item-text">
+                CRM-система собирает историю посещений, предпочитаемые блюда, средний чек и реакцию на акции. На
+                основе данных формируются персональные предложения и бонусные программы для постоянных гостей.
+              </p>
+              <div class="chip-row">
+                <span class="chip">CRM</span>
+                <span class="chip">Персонализированный маркетинг</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="innovation-photo">
+              <img src="images/pos_officiant.jpg" alt="Официант с POS-терминалом" />
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- О фирме -->
+      <section id="about">
+        <div class="section-header">
+          <h2 class="section-title">Информация о фирме</h2>
+          <p class="section-subtitle">
+            Местоположение, лицензия, собственник, руководство и контакты
+          </p>
+        </div>
+        <div class="info-grid">
+          <div>
+            <table class="info-table">
+              <tr>
+                <td>Полное название</td>
+                <td>ООО «Aurora Hotel &amp; Restaurant»</td>
+              </tr>
+              <tr>
+                <td>Юридический адрес</td>
+                <td>г. Минск, ул. Туристическая, 10</td>
+              </tr>
+              <tr>
+                <td>Фактический адрес</td>
+                <td>г. Минск, ул. Туристическая, 12</td>
+              </tr>
+              <tr>
+                <td>Лицензия</td>
+                <td>Лицензия на оказание гостиничных и ресторанных услуг № 12345 от 01.09.2025 г.</td>
+              </tr>
+              <tr>
+                <td>Собственник</td>
+                <td>ИП Петров Пётр Петрович</td>
+              </tr>
+              <tr>
+                <td>Руководитель</td>
+                <td>Директор — Войтюк Виолетта</td>
+              </tr>
+              <tr>
+                <td>Главный бухгалтер</td>
+                <td>Сидоров Дмитрий Алексеевич</td>
+              </tr>
+              <tr>
+                <td>Телефоны</td>
+                <td>+375 (29) 000-00-00 (ресепшн), +375 (29) 111-11-11 (ресторан)</td>
+              </tr>
+              <tr>
+                <td>E-mail</td>
+                <td>info@aurora-hotel.by</td>
+              </tr>
+              <tr>
+                <td>Соцсети</td>
+                <td>@aurora_hotel (Instagram), Aurora Hotel (Facebook)</td>
+              </tr>
+            </table>
+          </div>
+          <div>
+            <div class="info-block-title">Краткая справка о компании</div>
+            <p style="font-size:0.85rem;">
+              Компания работает на рынке туристических услуг с 2020 года. Основные направления:
+              размещение деловых туристов и индивидуальных путешественников, организация мероприятий
+              (конференции, банкеты, свадьбы), гастрономические туры и дегустационные вечера.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Отзывы -->
+      <section id="reviews">
+        <div class="section-header">
+          <h2 class="section-title">Отзывы клиентов</h2>
+          <p class="section-subtitle">
+            Примеры анкет и комментариев гостей
+          </p>
+        </div>
+        <div class="reviews-grid">
+          <div class="review-card">
+            <div class="review-header">
+              <span class="review-name">Мария К.</span>
+              <span class="review-stars">★★★★★</span>
+            </div>
+            <div class="review-meta">Цель визита: ужин | Дата: 10.10.2025</div>
+            <div>Отличная кухня и очень внимательный персонал. Понравилась возможность бронировать столик онлайн.</div>
+          </div>
+          <div class="review-card">
+            <div class="review-header">
+              <span class="review-name">Андрей Л.</span>
+              <span class="review-stars">★★★★☆</span>
+            </div>
+            <div class="review-meta">Цель визита: командировка | Дата: 12.10.2025</div>
+            <div>Останавливался в отеле на 3 ночи, удобное расположение и быстрый Wi-Fi. Завтрак «шведский стол» на уровне.</div>
+          </div>
+          <div class="review-card">
+            <div class="review-header">
+              <span class="review-name">Оксана П.</span>
+              <span class="review-stars">★★★★★</span>
+            </div>
+            <div class="review-meta">Цель визита: свадьба | Дата: 15.10.2025</div>
+            <div>Проводили свадебный банкет. Команда взяла всё на себя — декор, музыка, меню. Гости остались в восторге.</div>
+          </div>
+          <div class="review-card">
+            <div class="review-header">
+              <span class="review-name">Сергей Д.</span>
+              <span class="review-stars">★★★★☆</span>
+            </div>
+            <div class="review-meta">Цель визита: бизнес-конференция | Дата: 18.10.2025</div>
+            <div>Современный конференц-зал, хорошая звукотехника. Удобно, что кофе-брейки организуются на той же площадке.</div>
+          </div>
+          <div class="review-card">
+            <div class="review-header">
+              <span class="review-name">Елена З.</span>
+              <span class="review-stars">★★★★★</span>
+            </div>
+            <div class="review-meta">Цель визита: романтический ужин | Дата: 20.10.2025</div>
+            <div>Очень уютная атмосфера и красивая подача блюд. Особенно понравился десерт «Полярное сияние».</div>
+          </div>
+          <div class="review-card">
+            <div class="review-header">
+              <span class="review-name">Игорь М.</span>
+              <span class="review-stars">★★★★☆</span>
+            </div>
+            <div class="review-meta">Цель визита: деловой обед | Дата: 22.10.2025</div>
+            <div>Хорошее бизнес-ланч меню, быстро подают. Немного шумно в пиковое время, но в целом здорово.</div>
+          </div>
+          <div class="review-card">
+            <div class="review-header">
+              <span class="review-name">Наталья С.</span>
+              <span class="review-stars">★★★★★</span>
+            </div>
+            <div class="review-meta">Цель визита: туристическая группа | Дата: 25.10.2025</div>
+            <div>Привозили группу туристов. Чёткая работа по таймингу, отдельное меню и удобная парковка для автобуса.</div>
+          </div>
+          <div class="review-card">
+            <div class="review-header">
+              <span class="review-name">Павел Ч.</span>
+              <span class="review-stars">★★★★☆</span>
+            </div>
+            <div class="review-meta">Цель визита: ночь в отеле | Дата: 27.10.2025</div>
+            <div>Чистые номера, удобный матрас, тихо. Был бы плюс — бассейн или спа-зона.</div>
+          </div>
+          <div class="review-card">
+            <div class="review-header">
+              <span class="review-name">Виктория Т.</span>
+              <span class="review-stars">★★★★★</span>
+            </div>
+            <div class="review-meta">Цель визита: день рождения | Дата: 30.10.2025</div>
+            <div>Отмечали день рождения в малом зале. Отличный сервис, помогли с тортом и свечами.</div>
+          </div>
+          <div class="review-card">
+            <div class="review-header">
+              <span class="review-name">Дмитрий Г.</span>
+              <span class="review-stars">★★★★☆</span>
+            </div>
+            <div class="review-meta">Цель визита: ужин | Дата: 02.11.2025</div>
+            <div>Понравилось QR-меню — удобно просматривать состав и фото блюд. Цены соответствуют качеству.</div>
+          </div>
+          <div class="review-card">
+            <div class="review-header">
+              <span class="review-name">Светлана Р.</span>
+              <span class="review-stars">★★★★★</span>
+            </div>
+            <div class="review-meta">Цель визита: семейный отдых | Дата: 05.11.2025</div>
+            <div>Очень понравился детский уголок и детское меню. Персонал дружелюбный, рекомендуем.</div>
+          </div>
+          <div class="review-card">
+            <div class="review-header">
+              <span class="review-name">Антон Б.</span>
+              <span class="review-stars">★★★★☆</span>
+            </div>
+            <div class="review-meta">Цель визита: конференция | Дата: 08.11.2025</div>
+            <div>Использовали зал для IT-митапа. Быстрый интернет, много розеток, удобные стулья.</div>
+          </div>
+          <div class="review-card">
+            <div class="review-header">
+              <span class="review-name">Юлия Н.</span>
+              <span class="review-stars">★★★★★</span>
+            </div>
+            <div class="review-meta">Цель визита: девичник | Дата: 10.11.2025</div>
+            <div>Сделали отдельную фотозону и спец-коктейли. Девочкам очень понравилась атмосфера.</div>
+          </div>
+          <div class="review-card">
+            <div class="review-header">
+              <span class="review-name">Константин Е.</span>
+              <span class="review-stars">★★★★☆</span>
+            </div>
+            <div class="review-meta">Цель визита: транзитный турист | Дата: 12.11.2025</div>
+            <div>Номер аккуратный, заселили быстро. Было бы удобно иметь поздний выезд без доплаты.</div>
+          </div>
+          <div class="review-card">
+            <div class="review-header">
+              <span class="review-name">Алина Ф.</span>
+              <span class="review-stars">★★★★★</span>
+            </div>
+            <div class="review-meta">Цель визита: гастрономический тур | Дата: 15.11.2025</div>
+            <div>Дегустационный сет шеф-повара — отличный. Радует, что меню адаптируют под вкусы гостей и аллергии.</div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-group">
+        <span>© <span id="year"></span> Aurora Hotel &amp; Restaurant.</span>
+        <span>Учебный бизнес-проект объекта туристической индустрии.</span>
+      </div>
+      <div class="footer-group">
+        <span style="font-size:0.75rem;">Автор проекта: Войтюк Виолетта.</span>
+      </div>
+    </div>
+  </footer>
+
+  <button class="btn btn-primary scroll-top" id="scrollTopBtn">Наверх</button>
+</div>
+
+<script>
+  const navLinks = document.querySelectorAll(".nav-link, .hero-cta .btn");
+  const sections = document.querySelectorAll(".sections section");
+  const heroSection = document.getElementById("hero");
+
+  function showSection(id) {
+    sections.forEach((sec) => {
+      sec.classList.toggle("active", sec.id === id);
+    });
+    if (heroSection) {
+      heroSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    document.querySelectorAll("nav .nav-link").forEach((link) => {
+      link.classList.toggle("active", link.dataset.section === id);
+    });
+  }
+
+  navLinks.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const target = btn.dataset.section;
+      if (target) {
+        showSection(target);
+      }
+    });
+  });
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  function handleFormSubmit(formId, title) {
+    const form = document.getElementById(formId);
+    if (!form) return;
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      openModal(
+              title,
+              "Заявка успешно отправлена. В учебной версии данные не отправляются на сервер, " +
+              "но в реальной системе они могли бы сохраняться в базу данных или отправляться на e-mail администратора."
+      );
+      form.reset();
+    });
+  }
+
+  function openModal(title, text) {
+    const backdrop = document.createElement("div");
+    backdrop.className = "modal-backdrop";
+    backdrop.innerHTML = `
+            <div class="modal">
+                <div class="modal-title">${title}</div>
+                <div class="modal-text">${text}</div>
+                <div class="modal-actions">
+                    <button class="btn btn-primary btn-sm">OK</button>
+                </div>
+            </div>
+        `;
+    backdrop.querySelector("button").addEventListener("click", () => {
+      document.body.removeChild(backdrop);
+    });
+    backdrop.addEventListener("click", (e) => {
+      if (e.target === backdrop) {
+        document.body.removeChild(backdrop);
+      }
+    });
+    document.body.appendChild(backdrop);
+  }
+
+  handleFormSubmit("booking-form", "Бронирование столика");
+  handleFormSubmit("delivery-form", "Онлайн-заказ и доставка");
+
+  const scrollBtn = document.getElementById("scrollTopBtn");
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 400) {
+      scrollBtn.classList.add("visible");
+    } else {
+      scrollBtn.classList.remove("visible");
+    }
+  });
+  scrollBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+</script>
+</body>
+</html>
